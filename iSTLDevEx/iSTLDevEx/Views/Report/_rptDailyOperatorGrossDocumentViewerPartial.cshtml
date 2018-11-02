@@ -1,0 +1,7 @@
+@Html.DevExpress().DocumentViewer(settings => {
+    settings.Name = "rptDailyOperatorGrossDocumentViewer";
+    settings.CallbackRouteValues = new { Controller = "Report", Action = "rptDailyOperatorGrossDocumentViewerPartial" };
+    settings.ExportRouteValues = new { Controller = "Report", Action = "rptDailyOperatorGrossDocumentViewerPartialExport" };
+	settings.Report = (XtraReport)Model;
+	settings.ToolbarMode = DocumentViewerToolbarMode.StandardToolbar;
+}).GetHtml()

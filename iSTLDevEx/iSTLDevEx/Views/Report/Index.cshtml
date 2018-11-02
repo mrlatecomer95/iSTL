@@ -1,0 +1,268 @@
+﻿@model iSTLDevEx.Models.ReportIndexViewModel
+@{
+    ViewBag.Title = "Result List";
+}
+
+<div style="padding-top:50px">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>Result List</h4>
+        </div>
+        <div class="panel-body">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="form-horizontal">
+                                    <div class="form-group" style="margin-bottom:0px">
+                                        @Html.Label("Date Filter (MM/DD/YYYY) ", new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            <div class="input-group">
+                                                @Html.EditorFor(model => model.DateFilter, new { htmlAttributes = new { @class = "form-control" } })
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-info js-btnFilter" id="btnFilterDraw">Filter <span class="glyphicon glyphicon-filter"></span></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+
+                                </div>
+
+                                <div style="padding-top:10px">
+                                    @{
+                                        Html.RenderPartial("_DrawResultList");
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h5>
+                                    Reports
+                                </h5>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.AgentID, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div class="col-md-12">
+                                            @*@Html.DropDownListFor(x => x.AgentID, new SelectList(Model.AgentList, "Value", "Text"), "All Agents", new { @class = "form-control" })*@
+                                            @Html.DropDownListFor(x => x.AgentID, Enumerable.Empty<SelectListItem>(), "Loading Agent", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                @{
+                                    Html.RenderPartial("_ReportListView");
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3>Report Viewer</h3>
+        </div>
+        <div class="panel-body">
+            <div id="rptSpace">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+
+
+<script>
+    $(document).ready(function () {
+        $.fn.dataTable.moment('DD-MMM-YYYY');
+        var DateFilter = $("#DateFilter").val();
+        //TABLE Draw Result
+        var tblDrawResult = $("#tblDrawResult").DataTable({
+            pageLength: 100,
+            select: 'single',
+            bLengthChange: false,
+            compact: true,
+            ajax: {
+                data: function (d) {
+                    d.DateFilter = $("#DateFilter").val()
+                },
+                url: '@Url.Action("JsonDrawResultList", "Report")',
+                type: 'GET',
+                dataSrc: "",
+            },
+            columns: [
+                {
+                    data: "DrawDate",
+                    render: function (data, type, drow) {
+                        return moment(data.toString()).format("DD-MMM-YYYY");
+                    }
+                },
+                { data: "ForDraw" },
+                { data: "DrawResult" },
+                { data: "EnteredBy" },
+            ],
+        });
+        //End Draw List
+
+
+        //REPORT LIST
+        var tblRptList = $("#tblReportList").DataTable({
+            bLengthChange: false,
+            bFilter: true,
+            bInfo: false,
+            bAutoWidth: false,
+            compact: true,
+            searching: false,
+            bPaginate: false,
+            ajax: {
+                url: '@Url.Action("JsonReportList", "Report")',
+                type: 'GET',
+                dataSrc: "",
+            },
+            columns: [
+                {
+                    data: "ID",
+                    render: function (data, type, drow) {
+                        return "<button class='btn btn-link js-btnlink' data-ID='" + data + "' >" + drow.ReportName + "</button>";
+                    }
+                }
+            ],
+        });
+        //End Report List
+
+
+
+        tblRptList.on("click", ".js-btnlink", function () {
+            var drawItemtbl = null;
+            var strDrawID = null;
+            var strForDraw = null;
+            var strDrawResult = null;
+            var strDateRec = null;
+            if (!tblDrawResult.rows('.selected').any()) {
+                alert("Please Select Draw Date");
+                return 0;
+            }
+            drawItemtbl = tblDrawResult.rows({ selected: true }).data()[0];
+            strForDraw = drawItemtbl.ForDraw;
+            strDrawResult = drawItemtbl.DrawResult;
+            strDateRec = moment(drawItemtbl.DrawDate.toString()).format("DD MM YYYY");
+
+            var strAgentID = $("#AgentID").val();
+
+            var button = $(this);
+            var strRptID = button.attr("data-ID");
+
+            var a = { ForDraw: strForDraw, DrawResult: strDrawResult, DateRec: strDateRec, AgentID: strAgentID, ReportID: strRptID };
+
+            var strUrl = "";
+            switch (a.ReportID) {
+                case "1": //Agent Winning Bet
+                    strUrl = "@Url.Action("rptWinningBetAgent", "Report")";
+                    break;
+                case "2": //Bet Per Agent
+                    strUrl = "@Url.Action("rptAgentBetDetail", "Report")";
+                    break;
+                case "3": //Operator Gross
+                    strUrl = "@Url.Action("rptOperatorGross", "Report")";
+                    break;
+                case "4": //Current Draw Bet Per Agent
+                    strUrl = "@Url.Action("rptAgentBetDetailCurrent", "Report")";
+                    break;
+                case "5": //Current Draw Operator Gross
+                    strUrl = "@Url.Action("rptOperatorGrossCurrent", "Report")";
+                    break;
+                case "6": //Operator Daily Gross
+                    strUrl = "@Url.Action("rptDailyOperatorGross", "Report")";
+                    break;
+                case "7": //Daily Agent Gross
+                    strUrl = "@Url.Action("rptDailyAgentGross", "Report")";
+                    break;
+            }
+
+            $.ajax({
+                type: "Get",
+                url: strUrl,
+                data: { ForDraw: a.ForDraw, DrawResult: a.DrawResult, DateRec: a.DateRec, AgentID: a.AgentID, ReportID: a.ReportID },
+                application: 'json',
+                success: function (data) {
+                    $('#rptSpace').html("");
+                    $('#rptSpace').html(data);
+
+                }
+            })
+        });
+
+
+        $("#btnFilterDraw").on("click", function () {
+            tblDrawResult.ajax.reload();
+            $('#rptSpace').html("");
+            $("#AgentID").html("");
+
+        });
+
+        tblDrawResult.on('select', function (e, dt, type, indexes) {
+            $("#AgentID").html("");
+            $("#AgentID").val("");
+            ReloadAgentList();
+        });
+        function ReloadAgentList() {
+            if (!tblDrawResult.rows('.selected').any()) {
+                alert("Please Select Draw Date");
+                return 0;
+            }
+            drawItemtbl = tblDrawResult.rows({ selected: true }).data()[0]; //Selected ROW
+            var strPeriod =  moment(drawItemtbl.DrawDate.toString()).format("YYYYMMDD");
+            var strDrawTime = drawItemtbl.ForDraw;
+            $.ajax({
+                url: '@Url.Action("LoadAgent", "Report")',
+                type: "GET",
+                data: { Period: strPeriod, DrawTime: strDrawTime },
+                beforeSend: function () {
+                    $("#AgentID").html("");
+                    $("#AgentID").val();
+                    $('#AgentID').addClass("disable");
+                    $('#AgentID').append($('<option></option>').val("Loading Agent").html("Loading Agent"));
+                },
+                success: function (data) {
+                    $("#AgentID").html("");
+                    $.each(data, function (i, vsl) {
+                        $('#AgentID').append(
+                        $('<option></option>').val(vsl.AgentName).html(vsl.AgentName));
+                    });
+                },
+                complete: function () {
+                    $('#AgentID').removeClass("disable");
+                    ($('<option></option>').val("").html("All Agent")).insertBefore("#AgentID option:first-child");
+                },
+
+            });
+
+        }
+
+
+    });
+
+
+
+</script>
+
+

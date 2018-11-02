@@ -1,0 +1,1018 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SMSSysModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="M_Agent">
+          <Key>
+            <PropertyRef Name="AgentID" />
+          </Key>
+          <Property Name="AgentID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="AgentName" Type="varchar" MaxLength="150" />
+          <Property Name="AgentCode" Type="varchar" MaxLength="75" />
+          <Property Name="OperatorID" Type="varchar" MaxLength="150" />
+          <Property Name="MobileNo" Type="bigint" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="200" />
+          <Property Name="InActive" Type="tinyint" />
+          <Property Name="OperatorSubID" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="M_Draw">
+          <Key>
+            <PropertyRef Name="DrawID" />
+          </Key>
+          <Property Name="DrawID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DrawDesc" Type="varchar" MaxLength="50" />
+          <Property Name="SortID" Type="int" />
+        </EntityType>
+        <EntityType Name="M_Operator">
+          <Key>
+            <PropertyRef Name="OperatorID" />
+          </Key>
+          <Property Name="OperatorID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="OperatorName" Type="varchar" MaxLength="150" />
+          <Property Name="OperatorLoc" Type="varchar" MaxLength="150" />
+          <Property Name="OperatorCode" Type="varchar" MaxLength="75" />
+          <Property Name="MobileNo" Type="bigint" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="200" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="InActive" Type="tinyint" />
+          <Property Name="OperComm" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="M_OperatorSub">
+          <Key>
+            <PropertyRef Name="OperatorSubID" />
+          </Key>
+          <Property Name="OperatorSubID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="OperatorSubName" Type="varchar" MaxLength="150" />
+          <Property Name="OperatorID" Type="varchar" MaxLength="150" />
+          <Property Name="MobileNo" Type="bigint" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SMSSys.dbo.M_Setting' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="M_Setting">
+          <Key>
+            <PropertyRef Name="SettingID" />
+          </Key>
+          <Property Name="SettingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SettingCode" Type="varchar" MaxLength="50" />
+          <Property Name="SettingVal" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="M_Sim">
+          <Key>
+            <PropertyRef Name="SimID" />
+          </Key>
+          <Property Name="SimID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="SimDesc" Type="varchar" MaxLength="50" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="15" />
+          <Property Name="isSending" Type="tinyint" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="200" />
+          <Property Name="DateUpdated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="M_Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="EmpName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="100" />
+          <Property Name="Password" Type="varchar" MaxLength="100" />
+          <Property Name="isAdmin" Type="bit" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="200" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="isAccount" Type="bit" />
+          <Property Name="isTran" Type="bit" />
+        </EntityType>
+        <EntityType Name="T_DrawResult">
+          <Key>
+            <PropertyRef Name="DrawID" />
+          </Key>
+          <Property Name="DrawID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="DrawDate" Type="date" />
+          <Property Name="ForDraw" Type="varchar" MaxLength="50" />
+          <Property Name="DrawResult" Type="varchar" MaxLength="3" />
+          <Property Name="EnteredBy" Type="varchar" MaxLength="100" />
+          <Property Name="DateEntered" Type="datetime" />
+        </EntityType>
+        <EntityType Name="T_MsgReply">
+          <Key>
+            <PropertyRef Name="MsgID" />
+          </Key>
+          <Property Name="MsgID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="50" />
+          <Property Name="ReplyMsg" Type="text" />
+          <Property Name="DrawTime" Type="varchar" MaxLength="10" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="MsgType" Type="varchar" MaxLength="5" />
+          <Property Name="SentTryCnt" Type="int" />
+          <Property Name="SentHandler" Type="int" />
+          <Property Name="isValidBet" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="T_MsgReplySent">
+          <Key>
+            <PropertyRef Name="MsgID" />
+          </Key>
+          <Property Name="MsgID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="50" />
+          <Property Name="ReplyMsg" Type="text" />
+          <Property Name="DrawTime" Type="varchar" MaxLength="10" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="MsgType" Type="varchar" MaxLength="5" />
+          <Property Name="SentTryCnt" Type="int" />
+          <Property Name="SentHandler" Type="int" />
+          <Property Name="isValidBet" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="T_OperatorCr">
+          <Key>
+            <PropertyRef Name="OperatorCrID" />
+          </Key>
+          <Property Name="OperatorCrID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="OperatorID" Type="varchar" MaxLength="15" />
+          <Property Name="CrAmt" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DrawDate" Type="datetime" />
+          <Property Name="DrawTime" Type="varchar" MaxLength="10" />
+          <Property Name="DrawPeriod" Type="bigint" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="CrDesc" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="T_OperatorDr">
+          <Key>
+            <PropertyRef Name="OperatorDrID" />
+          </Key>
+          <Property Name="OperatorDrID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="OperatorID" Type="varchar" MaxLength="15" />
+          <Property Name="DrAmt" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DrawDate" Type="datetime" />
+          <Property Name="DrawTime" Type="varchar" MaxLength="10" />
+          <Property Name="DrawPeriod" Type="bigint" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="DrDesc" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="T_ReceivedBet">
+          <Key>
+            <PropertyRef Name="ReceivedBetID" />
+          </Key>
+          <Property Name="ReceivedBetID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ReceivedDate" Type="datetime" />
+          <Property Name="ReceivedFrom" Type="varchar" MaxLength="100" />
+          <Property Name="FromMobile" Type="bigint" />
+          <Property Name="CombinationNo" Type="varchar" MaxLength="3" />
+          <Property Name="StraightAmtBet" Type="int" />
+          <Property Name="RambolAmtBet" Type="int" />
+          <Property Name="ForDraw" Type="varchar" MaxLength="50" />
+          <Property Name="WonAmtStr" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="WonAmtRam" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OperatorMobile" Type="bigint" />
+          <Property Name="OperatorName" Type="varchar" MaxLength="150" />
+          <Property Name="OperatorCode" Type="varchar" MaxLength="75" />
+          <Property Name="AgentName" Type="varchar" MaxLength="150" />
+          <Property Name="isAgent" Type="bit" />
+          <Property Name="DrawResult" Type="varchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="T_ReceivedBetArc">
+          <Key>
+            <PropertyRef Name="ReceivedBetID" />
+          </Key>
+          <Property Name="ReceivedBetID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ReceivedDate" Type="datetime" />
+          <Property Name="ReceivedFrom" Type="varchar" MaxLength="100" />
+          <Property Name="FromMobile" Type="bigint" />
+          <Property Name="CombinationNo" Type="varchar" MaxLength="3" />
+          <Property Name="StraightAmtBet" Type="int" />
+          <Property Name="RambolAmtBet" Type="int" />
+          <Property Name="ForDraw" Type="varchar" MaxLength="50" />
+          <Property Name="WonAmtStr" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="WonAmtRam" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OperatorMobile" Type="bigint" />
+          <Property Name="OperatorName" Type="varchar" MaxLength="150" />
+          <Property Name="OperatorCode" Type="varchar" MaxLength="75" />
+          <Property Name="AgentName" Type="varchar" MaxLength="150" />
+          <Property Name="isAgent" Type="bit" />
+          <Property Name="DrawResult" Type="varchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="T_SentSMS_ForDel">
+          <Key>
+            <PropertyRef Name="SentSMSID" />
+          </Key>
+          <Property Name="SentSMSID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="SentDate" Type="datetime" />
+          <Property Name="SentTo" Type="varchar" MaxLength="100" />
+          <Property Name="SentMobile" Type="int" />
+          <Property Name="SMSMsg" Type="text" />
+          <Property Name="ReceivedBetID" Type="varchar" MaxLength="15" />
+          <Property Name="SentBy_EmpName" Type="varchar" MaxLength="100" />
+          <Property Name="SentBy_SimID" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="T_SMSNotif">
+          <Key>
+            <PropertyRef Name="NotifID" />
+          </Key>
+          <Property Name="NotifID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="OperatorCode" Type="varchar" MaxLength="15" />
+          <Property Name="DrawTime" Type="varchar" MaxLength="10" />
+          <Property Name="DrawDate" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="OperatorID" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="webpages_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsConfirmed" Type="bit" />
+          <Property Name="LastPasswordFailureDate" Type="datetime" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordChangedDate" Type="datetime" />
+          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="webpages_OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Name="Provider" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProviderUserId" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'SMSSys.dbo.rptWinningBetAgent' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="rptWinningBetAgent">
+          <Property Name="DateReceived" Type="nvarchar" MaxLength="4000" />
+          <Property Name="StrBet" Type="int" />
+          <Property Name="RamBet" Type="int" />
+          <Property Name="TotalAmt" Type="decimal" Precision="38" Scale="2" />
+          <Property Name="OperatorMobile" Type="bigint" />
+          <Property Name="ForDraw" Type="varchar" MaxLength="50" />
+          <Property Name="AgentName" Type="varchar" MaxLength="150" />
+          <Property Name="DrawResult" Type="int" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="28" />
+          <Property Name="OperatorName" Type="varchar" MaxLength="150" />
+          <Property Name="AgentCode" Type="varchar" MaxLength="75" />
+          <Property Name="WonCnt" Type="int" />
+          <Property Name="WonStr" Type="decimal" Precision="38" Scale="2" />
+          <Property Name="WonRam" Type="decimal" Precision="38" Scale="2" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SMSSys.dbo.viewActiveOperatorAgent' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="viewActiveOperatorAgent">
+          <Key>
+            <PropertyRef Name="AgentID" />
+          </Key>
+          <Property Name="AgentName" Type="varchar" MaxLength="150" />
+          <Property Name="AgentID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="OperatorMobile" Type="bigint" />
+          <Property Name="OperatorName" Type="varchar" MaxLength="150" />
+          <Property Name="OperatorCode" Type="varchar" MaxLength="75" />
+          <Property Name="MobileNo" Type="bigint" />
+        </EntityType>
+        <Association Name="fk_RoleId">
+          <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="webpages_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserId">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SMSSysModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_Agent" EntityType="Self.M_Agent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_Draw" EntityType="Self.M_Draw" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_Operator" EntityType="Self.M_Operator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_OperatorSub" EntityType="Self.M_OperatorSub" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_Sim" EntityType="Self.M_Sim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_Users" EntityType="Self.M_Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_DrawResult" EntityType="Self.T_DrawResult" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_MsgReply" EntityType="Self.T_MsgReply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_MsgReplySent" EntityType="Self.T_MsgReplySent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_OperatorCr" EntityType="Self.T_OperatorCr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_OperatorDr" EntityType="Self.T_OperatorDr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_ReceivedBet" EntityType="Self.T_ReceivedBet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_ReceivedBetArc" EntityType="Self.T_ReceivedBetArc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_SentSMS_ForDel" EntityType="Self.T_SentSMS_ForDel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_SMSNotif" EntityType="Self.T_SMSNotif" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_Setting" EntityType="Self.M_Setting" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [M_Setting].[SettingID] AS [SettingID], 
+    [M_Setting].[SettingCode] AS [SettingCode], 
+    [M_Setting].[SettingVal] AS [SettingVal]
+    FROM [dbo].[M_Setting] AS [M_Setting]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="viewActiveOperatorAgent" EntityType="Self.viewActiveOperatorAgent" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [viewActiveOperatorAgent].[AgentName] AS [AgentName], 
+    [viewActiveOperatorAgent].[AgentID] AS [AgentID], 
+    [viewActiveOperatorAgent].[OperatorMobile] AS [OperatorMobile], 
+    [viewActiveOperatorAgent].[OperatorName] AS [OperatorName], 
+    [viewActiveOperatorAgent].[OperatorCode] AS [OperatorCode], 
+    [viewActiveOperatorAgent].[MobileNo] AS [MobileNo]
+    FROM [dbo].[viewActiveOperatorAgent] AS [viewActiveOperatorAgent]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_RoleId" Association="Self.fk_RoleId">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserId" Association="Self.fk_UserId">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SMSSysModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="M_Agent">
+          <Key>
+            <PropertyRef Name="AgentID" />
+          </Key>
+          <Property Name="AgentID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AgentName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="AgentCode" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo" Type="Int64" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="InActive" Type="Byte" />
+          <Property Name="OperatorSubID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="M_Draw">
+          <Key>
+            <PropertyRef Name="DrawID" />
+          </Key>
+          <Property Name="DrawID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DrawDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SortID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="M_Operator">
+          <Key>
+            <PropertyRef Name="OperatorID" />
+          </Key>
+          <Property Name="OperatorID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OperatorName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorLoc" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorCode" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo" Type="Int64" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="InActive" Type="Byte" />
+          <Property Name="OperComm" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="M_OperatorSub">
+          <Key>
+            <PropertyRef Name="OperatorSubID" />
+          </Key>
+          <Property Name="OperatorSubID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OperatorSubName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo" Type="Int64" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="M_Sim">
+          <Key>
+            <PropertyRef Name="SimID" />
+          </Key>
+          <Property Name="SimID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SimDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="isSending" Type="Byte" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="T_DrawResult">
+          <Key>
+            <PropertyRef Name="DrawID" />
+          </Key>
+          <Property Name="DrawID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DrawDate" Type="DateTime" Precision="0" />
+          <Property Name="ForDraw" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DrawResult" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="EnteredBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DateEntered" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="T_MsgReply">
+          <Key>
+            <PropertyRef Name="MsgID" />
+          </Key>
+          <Property Name="MsgID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReplyMsg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DrawTime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="MsgType" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SentTryCnt" Type="Int32" />
+          <Property Name="SentHandler" Type="Int32" />
+          <Property Name="isValidBet" Type="Byte" />
+        </EntityType>
+        <EntityType Name="T_MsgReplySent">
+          <Key>
+            <PropertyRef Name="MsgID" />
+          </Key>
+          <Property Name="MsgID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReplyMsg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DrawTime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="MsgType" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SentTryCnt" Type="Int32" />
+          <Property Name="SentHandler" Type="Int32" />
+          <Property Name="isValidBet" Type="Byte" />
+        </EntityType>
+        <EntityType Name="T_OperatorCr">
+          <Key>
+            <PropertyRef Name="OperatorCrID" />
+          </Key>
+          <Property Name="OperatorCrID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OperatorID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CrAmt" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DrawDate" Type="DateTime" Precision="3" />
+          <Property Name="DrawTime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DrawPeriod" Type="Int64" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="CrDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_OperatorDr">
+          <Key>
+            <PropertyRef Name="OperatorDrID" />
+          </Key>
+          <Property Name="OperatorDrID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OperatorID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DrAmt" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DrawDate" Type="DateTime" Precision="3" />
+          <Property Name="DrawTime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DrawPeriod" Type="Int64" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="DrDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_ReceivedBet">
+          <Key>
+            <PropertyRef Name="ReceivedBetID" />
+          </Key>
+          <Property Name="ReceivedBetID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
+          <Property Name="ReceivedFrom" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FromMobile" Type="Int64" />
+          <Property Name="CombinationNo" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="StraightAmtBet" Type="Int32" />
+          <Property Name="RambolAmtBet" Type="Int32" />
+          <Property Name="ForDraw" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WonAmtStr" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="WonAmtRam" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OperatorMobile" Type="Int64" />
+          <Property Name="OperatorName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorCode" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="AgentName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="isAgent" Type="Boolean" />
+          <Property Name="DrawResult" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_ReceivedBetArc">
+          <Key>
+            <PropertyRef Name="ReceivedBetID" />
+          </Key>
+          <Property Name="ReceivedBetID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
+          <Property Name="ReceivedFrom" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FromMobile" Type="Int64" />
+          <Property Name="CombinationNo" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="StraightAmtBet" Type="Int32" />
+          <Property Name="RambolAmtBet" Type="Int32" />
+          <Property Name="ForDraw" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WonAmtStr" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="WonAmtRam" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OperatorMobile" Type="Int64" />
+          <Property Name="OperatorName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorCode" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="AgentName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="isAgent" Type="Boolean" />
+          <Property Name="DrawResult" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_SentSMS_ForDel">
+          <Key>
+            <PropertyRef Name="SentSMSID" />
+          </Key>
+          <Property Name="SentSMSID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SentDate" Type="DateTime" Precision="3" />
+          <Property Name="SentTo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SentMobile" Type="Int32" />
+          <Property Name="SMSMsg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ReceivedBetID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SentBy_EmpName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SentBy_SimID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_SMSNotif">
+          <Key>
+            <PropertyRef Name="NotifID" />
+          </Key>
+          <Property Name="NotifID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OperatorCode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DrawTime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DrawDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="M_Setting">
+          <Key>
+            <PropertyRef Name="SettingID" />
+          </Key>
+          <Property Name="SettingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SettingCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SettingVal" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="viewActiveOperatorAgent">
+          <Key>
+            <PropertyRef Name="AgentID" />
+          </Key>
+          <Property Name="AgentName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="AgentID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OperatorMobile" Type="Int64" />
+          <Property Name="OperatorName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="OperatorCode" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo" Type="Int64" />
+        </EntityType>
+        <EntityContainer Name="SMSSysEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="M_Agent" EntityType="Self.M_Agent" />
+          <EntitySet Name="M_Draw" EntityType="Self.M_Draw" />
+          <EntitySet Name="M_Operator" EntityType="Self.M_Operator" />
+          <EntitySet Name="M_OperatorSub" EntityType="Self.M_OperatorSub" />
+          <EntitySet Name="M_Sim" EntityType="Self.M_Sim" />
+          <EntitySet Name="T_DrawResult" EntityType="Self.T_DrawResult" />
+          <EntitySet Name="T_MsgReply" EntityType="Self.T_MsgReply" />
+          <EntitySet Name="T_MsgReplySent" EntityType="Self.T_MsgReplySent" />
+          <EntitySet Name="T_OperatorCr" EntityType="Self.T_OperatorCr" />
+          <EntitySet Name="T_OperatorDr" EntityType="Self.T_OperatorDr" />
+          <EntitySet Name="T_ReceivedBet" EntityType="Self.T_ReceivedBet" />
+          <EntitySet Name="T_ReceivedBetArc" EntityType="Self.T_ReceivedBetArc" />
+          <EntitySet Name="T_SentSMS_ForDel" EntityType="Self.T_SentSMS_ForDel" />
+          <EntitySet Name="T_SMSNotif" EntityType="Self.T_SMSNotif" />
+          <EntitySet Name="M_Setting" EntityType="Self.M_Setting" />
+          <EntitySet Name="viewActiveOperatorAgents" EntityType="Self.viewActiveOperatorAgent" />
+          <EntitySet Name="C__MigrationHistory" EntityType="SMSSysModel.C__MigrationHistory" />
+          <EntitySet Name="UserProfiles" EntityType="SMSSysModel.UserProfile" />
+          <EntitySet Name="webpages_Membership" EntityType="SMSSysModel.webpages_Membership" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="SMSSysModel.webpages_OAuthMembership" />
+          <EntitySet Name="webpages_Roles" EntityType="SMSSysModel.webpages_Roles" />
+          <AssociationSet Name="webpages_UsersInRoles" Association="SMSSysModel.webpages_UsersInRoles">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <EntitySet Name="M_Users" EntityType="SMSSysModel.M_Users" />
+        </EntityContainer>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OperatorID" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="webpages_Roles" Relationship="SMSSysModel.webpages_UsersInRoles" FromRole="UserProfile" ToRole="webpages_Roles" />
+        </EntityType>
+        <EntityType Name="webpages_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ConfirmationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsConfirmed" Type="Boolean" />
+          <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
+          <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="webpages_OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Name="Provider" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderUserId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserProfiles" Relationship="SMSSysModel.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="webpages_UsersInRoles">
+          <End Type="SMSSysModel.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
+          <End Type="SMSSysModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+        </Association>
+        <EntityType Name="M_Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EmpName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="isAdmin" Type="Boolean" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="isAccount" Type="Boolean" />
+          <Property Name="isTran" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SMSSysModelStoreContainer" CdmEntityContainer="SMSSysEntities">
+          <EntitySetMapping Name="M_Agent">
+            <EntityTypeMapping TypeName="SMSSysModel.M_Agent">
+              <MappingFragment StoreEntitySet="M_Agent">
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+                <ScalarProperty Name="AgentName" ColumnName="AgentName" />
+                <ScalarProperty Name="AgentCode" ColumnName="AgentCode" />
+                <ScalarProperty Name="OperatorID" ColumnName="OperatorID" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="InActive" ColumnName="InActive" />
+                <ScalarProperty Name="OperatorSubID" ColumnName="OperatorSubID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M_Draw">
+            <EntityTypeMapping TypeName="SMSSysModel.M_Draw">
+              <MappingFragment StoreEntitySet="M_Draw">
+                <ScalarProperty Name="DrawID" ColumnName="DrawID" />
+                <ScalarProperty Name="DrawDesc" ColumnName="DrawDesc" />
+                <ScalarProperty Name="SortID" ColumnName="SortID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M_Operator">
+            <EntityTypeMapping TypeName="SMSSysModel.M_Operator">
+              <MappingFragment StoreEntitySet="M_Operator">
+                <ScalarProperty Name="OperatorID" ColumnName="OperatorID" />
+                <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
+                <ScalarProperty Name="OperatorLoc" ColumnName="OperatorLoc" />
+                <ScalarProperty Name="OperatorCode" ColumnName="OperatorCode" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="InActive" ColumnName="InActive" />
+                <ScalarProperty Name="OperComm" ColumnName="OperComm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M_OperatorSub">
+            <EntityTypeMapping TypeName="SMSSysModel.M_OperatorSub">
+              <MappingFragment StoreEntitySet="M_OperatorSub">
+                <ScalarProperty Name="OperatorSubID" ColumnName="OperatorSubID" />
+                <ScalarProperty Name="OperatorSubName" ColumnName="OperatorSubName" />
+                <ScalarProperty Name="OperatorID" ColumnName="OperatorID" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M_Sim">
+            <EntityTypeMapping TypeName="SMSSysModel.M_Sim">
+              <MappingFragment StoreEntitySet="M_Sim">
+                <ScalarProperty Name="SimID" ColumnName="SimID" />
+                <ScalarProperty Name="SimDesc" ColumnName="SimDesc" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="isSending" ColumnName="isSending" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_DrawResult">
+            <EntityTypeMapping TypeName="SMSSysModel.T_DrawResult">
+              <MappingFragment StoreEntitySet="T_DrawResult">
+                <ScalarProperty Name="DrawID" ColumnName="DrawID" />
+                <ScalarProperty Name="DrawDate" ColumnName="DrawDate" />
+                <ScalarProperty Name="ForDraw" ColumnName="ForDraw" />
+                <ScalarProperty Name="DrawResult" ColumnName="DrawResult" />
+                <ScalarProperty Name="EnteredBy" ColumnName="EnteredBy" />
+                <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_MsgReply">
+            <EntityTypeMapping TypeName="SMSSysModel.T_MsgReply">
+              <MappingFragment StoreEntitySet="T_MsgReply">
+                <ScalarProperty Name="MsgID" ColumnName="MsgID" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="ReplyMsg" ColumnName="ReplyMsg" />
+                <ScalarProperty Name="DrawTime" ColumnName="DrawTime" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="MsgType" ColumnName="MsgType" />
+                <ScalarProperty Name="SentTryCnt" ColumnName="SentTryCnt" />
+                <ScalarProperty Name="SentHandler" ColumnName="SentHandler" />
+                <ScalarProperty Name="isValidBet" ColumnName="isValidBet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_MsgReplySent">
+            <EntityTypeMapping TypeName="SMSSysModel.T_MsgReplySent">
+              <MappingFragment StoreEntitySet="T_MsgReplySent">
+                <ScalarProperty Name="MsgID" ColumnName="MsgID" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="ReplyMsg" ColumnName="ReplyMsg" />
+                <ScalarProperty Name="DrawTime" ColumnName="DrawTime" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="MsgType" ColumnName="MsgType" />
+                <ScalarProperty Name="SentTryCnt" ColumnName="SentTryCnt" />
+                <ScalarProperty Name="SentHandler" ColumnName="SentHandler" />
+                <ScalarProperty Name="isValidBet" ColumnName="isValidBet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_OperatorCr">
+            <EntityTypeMapping TypeName="SMSSysModel.T_OperatorCr">
+              <MappingFragment StoreEntitySet="T_OperatorCr">
+                <ScalarProperty Name="OperatorCrID" ColumnName="OperatorCrID" />
+                <ScalarProperty Name="OperatorID" ColumnName="OperatorID" />
+                <ScalarProperty Name="CrAmt" ColumnName="CrAmt" />
+                <ScalarProperty Name="DrawDate" ColumnName="DrawDate" />
+                <ScalarProperty Name="DrawTime" ColumnName="DrawTime" />
+                <ScalarProperty Name="DrawPeriod" ColumnName="DrawPeriod" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="CrDesc" ColumnName="CrDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_OperatorDr">
+            <EntityTypeMapping TypeName="SMSSysModel.T_OperatorDr">
+              <MappingFragment StoreEntitySet="T_OperatorDr">
+                <ScalarProperty Name="OperatorDrID" ColumnName="OperatorDrID" />
+                <ScalarProperty Name="OperatorID" ColumnName="OperatorID" />
+                <ScalarProperty Name="DrAmt" ColumnName="DrAmt" />
+                <ScalarProperty Name="DrawDate" ColumnName="DrawDate" />
+                <ScalarProperty Name="DrawTime" ColumnName="DrawTime" />
+                <ScalarProperty Name="DrawPeriod" ColumnName="DrawPeriod" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="DrDesc" ColumnName="DrDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_ReceivedBet">
+            <EntityTypeMapping TypeName="SMSSysModel.T_ReceivedBet">
+              <MappingFragment StoreEntitySet="T_ReceivedBet">
+                <ScalarProperty Name="ReceivedBetID" ColumnName="ReceivedBetID" />
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="ReceivedFrom" ColumnName="ReceivedFrom" />
+                <ScalarProperty Name="FromMobile" ColumnName="FromMobile" />
+                <ScalarProperty Name="CombinationNo" ColumnName="CombinationNo" />
+                <ScalarProperty Name="StraightAmtBet" ColumnName="StraightAmtBet" />
+                <ScalarProperty Name="RambolAmtBet" ColumnName="RambolAmtBet" />
+                <ScalarProperty Name="ForDraw" ColumnName="ForDraw" />
+                <ScalarProperty Name="WonAmtStr" ColumnName="WonAmtStr" />
+                <ScalarProperty Name="WonAmtRam" ColumnName="WonAmtRam" />
+                <ScalarProperty Name="OperatorMobile" ColumnName="OperatorMobile" />
+                <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
+                <ScalarProperty Name="OperatorCode" ColumnName="OperatorCode" />
+                <ScalarProperty Name="AgentName" ColumnName="AgentName" />
+                <ScalarProperty Name="isAgent" ColumnName="isAgent" />
+                <ScalarProperty Name="DrawResult" ColumnName="DrawResult" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_ReceivedBetArc">
+            <EntityTypeMapping TypeName="SMSSysModel.T_ReceivedBetArc">
+              <MappingFragment StoreEntitySet="T_ReceivedBetArc">
+                <ScalarProperty Name="ReceivedBetID" ColumnName="ReceivedBetID" />
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="ReceivedFrom" ColumnName="ReceivedFrom" />
+                <ScalarProperty Name="FromMobile" ColumnName="FromMobile" />
+                <ScalarProperty Name="CombinationNo" ColumnName="CombinationNo" />
+                <ScalarProperty Name="StraightAmtBet" ColumnName="StraightAmtBet" />
+                <ScalarProperty Name="RambolAmtBet" ColumnName="RambolAmtBet" />
+                <ScalarProperty Name="ForDraw" ColumnName="ForDraw" />
+                <ScalarProperty Name="WonAmtStr" ColumnName="WonAmtStr" />
+                <ScalarProperty Name="WonAmtRam" ColumnName="WonAmtRam" />
+                <ScalarProperty Name="OperatorMobile" ColumnName="OperatorMobile" />
+                <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
+                <ScalarProperty Name="OperatorCode" ColumnName="OperatorCode" />
+                <ScalarProperty Name="AgentName" ColumnName="AgentName" />
+                <ScalarProperty Name="isAgent" ColumnName="isAgent" />
+                <ScalarProperty Name="DrawResult" ColumnName="DrawResult" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_SentSMS_ForDel">
+            <EntityTypeMapping TypeName="SMSSysModel.T_SentSMS_ForDel">
+              <MappingFragment StoreEntitySet="T_SentSMS_ForDel">
+                <ScalarProperty Name="SentSMSID" ColumnName="SentSMSID" />
+                <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+                <ScalarProperty Name="SentTo" ColumnName="SentTo" />
+                <ScalarProperty Name="SentMobile" ColumnName="SentMobile" />
+                <ScalarProperty Name="SMSMsg" ColumnName="SMSMsg" />
+                <ScalarProperty Name="ReceivedBetID" ColumnName="ReceivedBetID" />
+                <ScalarProperty Name="SentBy_EmpName" ColumnName="SentBy_EmpName" />
+                <ScalarProperty Name="SentBy_SimID" ColumnName="SentBy_SimID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_SMSNotif">
+            <EntityTypeMapping TypeName="SMSSysModel.T_SMSNotif">
+              <MappingFragment StoreEntitySet="T_SMSNotif">
+                <ScalarProperty Name="NotifID" ColumnName="NotifID" />
+                <ScalarProperty Name="OperatorCode" ColumnName="OperatorCode" />
+                <ScalarProperty Name="DrawTime" ColumnName="DrawTime" />
+                <ScalarProperty Name="DrawDate" ColumnName="DrawDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M_Setting">
+            <EntityTypeMapping TypeName="SMSSysModel.M_Setting">
+              <MappingFragment StoreEntitySet="M_Setting">
+                <ScalarProperty Name="SettingID" ColumnName="SettingID" />
+                <ScalarProperty Name="SettingCode" ColumnName="SettingCode" />
+                <ScalarProperty Name="SettingVal" ColumnName="SettingVal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="viewActiveOperatorAgents">
+            <EntityTypeMapping TypeName="SMSSysModel.viewActiveOperatorAgent">
+              <MappingFragment StoreEntitySet="viewActiveOperatorAgent">
+                <ScalarProperty Name="AgentName" ColumnName="AgentName" />
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+                <ScalarProperty Name="OperatorMobile" ColumnName="OperatorMobile" />
+                <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
+                <ScalarProperty Name="OperatorCode" ColumnName="OperatorCode" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="SMSSysModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="SMSSysModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="OperatorID" ColumnName="OperatorID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Membership">
+            <EntityTypeMapping TypeName="SMSSysModel.webpages_Membership">
+              <MappingFragment StoreEntitySet="webpages_Membership">
+                <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
+                <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+                <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_OAuthMembership">
+            <EntityTypeMapping TypeName="SMSSysModel.webpages_OAuthMembership">
+              <MappingFragment StoreEntitySet="webpages_OAuthMembership">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Roles">
+            <EntityTypeMapping TypeName="SMSSysModel.webpages_Roles">
+              <MappingFragment StoreEntitySet="webpages_Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="SMSSysModel.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
+            <EndProperty Name="UserProfile">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="webpages_Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="M_Users">
+            <EntityTypeMapping TypeName="SMSSysModel.M_Users">
+              <MappingFragment StoreEntitySet="M_Users">
+                <ScalarProperty Name="isTran" ColumnName="isTran" />
+                <ScalarProperty Name="isAccount" ColumnName="isAccount" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

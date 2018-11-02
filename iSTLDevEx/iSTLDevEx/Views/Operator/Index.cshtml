@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div style="padding-top:50px">
+    <h2>Recieved Bets</h2>
+    <hr />
+    <div class="">
+        <table id="tblOperatorAgentList" class="table table-bordered table-responsive table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Date Recieved</th>
+                    <th>Agent Name</th>
+                    <th>Operator Name</th>
+                    <th>Draw Time</th>
+                    <th>Combination</th>
+                    <th>Str Amt</th>
+                    <th>Ramble Amt</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+
+        </table>
+    </div>
+</div>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $.fn.dataTable.moment('DD-MMM-YYYY HH:mm:ss');
+        var table = $("#tblOperatorAgentList").DataTable({
+            //bLengthChange: false,
+            ////"bFilter": true,
+            //bInfo: true,
+            //bAutoWidth: true,
+            pageLength: 50,
+            order: [[ 0, "desc" ]],
+            dom: 'Bfrtip',
+            ajax: {
+                url: '@Url.Action("JsonOperatorAgentList", "Operator")',
+                type: 'GET',
+                dataSrc: "",
+            },
+            columns: [
+                {
+                    data: "ReceivedDate",
+                    render: function (data, type, drow) {
+                        return moment(data.toString()).format("DD-MMM-YYYY HH:mm:ss");
+                    }
+                },
+                { data: "AgentName" },
+                { data: "OperatorName" },
+                { data: "ForDraw" },
+                { data: "CombinationNo" },
+                { data: "StraightAmtBet" },
+                { data: "RambolAmtBet" },
+            ],
+            //buttons: [
+            //{
+            //    text: 'Refresh',
+            //    action: function (e, dt, node, config) {
+            //        table.ajax.reload();
+            //    }
+            //}
+            //]
+            buttons: [
+                {
+                    text: 'Refresh',
+                    className: "btn btn-success"
+                }
+
+            ]
+
+        });
+
+        //For Auto Refresh every 120 second
+        //setInterval(function () {
+        //    table.ajax.reload();
+        //}, 120000);
+    });
+</script>

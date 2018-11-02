@@ -1,0 +1,26 @@
+﻿@model iSTLDevEx.Models.ReportItems
+<h1>Tesing</h1>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Okay</h3>
+    </div>
+    <div class="panel-body">
+        <p>
+            tesing lang po to
+
+            <div class="row">
+                <div class="container-fluid">
+                    @{
+                        Html.RenderAction("rptWinningBetAgent", "Report", new { model = Model });
+                    }
+                    @*@Html.Action("DocumentViewer1Partial")*@
+
+
+                </div>
+            </div>
+    
+        </p>
+    </div>
+</div>

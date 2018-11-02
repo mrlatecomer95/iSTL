@@ -1,0 +1,55 @@
+﻿@model iSTLDevEx.Models.PreRegistrationModel
+
+@{
+    ViewBag.Title = "PreRegistration";
+}
+
+<div style="padding-top:50px">
+
+    <h2>Pre Registration</h2>
+
+    @using (Html.BeginForm("PreRegistration", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @*<div class="form-horizontal">*@
+            
+            <hr />
+            <p>Enter operator details. </p>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <form class="form-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(model => model.OperatorCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.OperatorCode, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OperatorCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.OperatorMobileNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.OperatorMobileNumber, new { htmlAttributes = new { @class = "form-control", @type="number" } })
+                    @Html.ValidationMessageFor(model => model.OperatorMobileNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Validate" class="btn btn-default" />
+                </div>
+            </div>
+        </form>
+            
+        @*</div>*@
+    }
+
+    @*<div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>*@
+
+</div>
+@section Scripts{
+
+}
